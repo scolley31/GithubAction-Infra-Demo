@@ -6,18 +6,34 @@ on:
     branches: [main]
 
 jobs:
-  notify:
+#  notify:
+#    name: 'Notify Discord'
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Send workflow URL to Discord
+#        run: |
+#          curl -H "Content-Type: application/json" \
+#          -d '{"content": "A new deployment has been initiated! Approve it here: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"}' \
+#          ${{ secrets.DISCORD_WEBHOOK_URL }}
+
+  terraform_plan:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
     steps:
-      - name: Send workflow URL to Discord
-        run: |
-          curl -H "Content-Type: application/json" \
-          -d '{"content": "A new deployment has been initiated! Approve it here: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"}' \
-          ${{ secrets.DISCORD_WEBHOOK_URL }}
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Init Terraform
+        run: terraform init
+      - name: Validate_Terraform
+        run: terraform validate
+      - name: Plan_Terraform
+        run: terraform plan
 
   terraform_deploy:
     name: 'Terraform depolyment'
     runs-on: ubuntu-latest
+    needs: terraform_plan
     environment: scolley31
     steps:
       - name: Checkout code
