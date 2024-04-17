@@ -1,10 +1,8 @@
-
-
-name: 'pushC to CI'
+name: 'push CI'
 
 on:
-  push:
-    branches: [ '*' ]
+  pull_request:
+    branches: [ "main" ]
     paths-ignore:
       - '**/*.md'
 
@@ -39,4 +37,7 @@ jobs:
 
     - name: Terraform Validate
       run: terraform validate
+
+    - name: Terraform Plan
+      run: terraform plan
 
