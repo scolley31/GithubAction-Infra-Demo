@@ -41,3 +41,13 @@ jobs:
     - name: Terraform Plan
       run: terraform plan
 
+    - name: Show Plan
+      id: show plan
+      run: |
+        terraform plan -no-color > plan.txt
+    - name: Upload Plan Output as PR Comment
+      uses: mshick/add-pr-comment@v2
+      with:
+        message-path: |
+          ${{ github.workspace }}/src/plan.txt
+
