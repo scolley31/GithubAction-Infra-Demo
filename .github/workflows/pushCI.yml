@@ -2,7 +2,8 @@ name: 'push CI'
 
 on:
   push:
-    branches: [ '*' ]
+    branches:
+      - '**'
     paths-ignore:
       - '**/*.md'
 
