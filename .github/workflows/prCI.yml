@@ -2,7 +2,8 @@ name: 'pull_request CI'
 
 on:
   pull_request:
-    branches: [ "main" ]
+    branches:
+      - '**'
     paths-ignore:
       - '**/*.md'
 
