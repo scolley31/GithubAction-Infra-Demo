@@ -16,6 +16,7 @@ jobs:
           ${{ secrets.DISCORD_WEBHOOK_URL }}
 
   terraform_deploy:
+    name: 'Terraform depolyment'
     runs-on: ubuntu-latest
     environment: scolley31
     steps:
