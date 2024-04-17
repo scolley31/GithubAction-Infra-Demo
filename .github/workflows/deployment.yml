@@ -1,15 +1,9 @@
 name: EC2 Deployment Pipeline
 
-#on:
-#  pull_request:
-#    types: [closed]
-#    branches: [main]
-
 on:
-  push:
-    branches: [ '*' ]
-    paths-ignore:
-      - '**/*.md'
+  pull_request:
+    types: [closed]
+    branches: [main]
 
 jobs:
 #  notify:
