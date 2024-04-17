@@ -1,0 +1,23 @@
+name: EC2 Deployment Pipeline
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send workflow URL to Discord
+        run: |
+          curl -H "Content-Type: application/json" \
+          -d '{"content": "A new deployment has been initiated! Approve it here: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"}' \
+          ${{ secrets.DISCORD_WEBHOOK_URL }}
+
+  terraform_deploy:
+    runs-on: ubuntu-latest
+    environment: scolley31
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
