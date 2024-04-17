@@ -42,7 +42,7 @@ jobs:
       run: terraform plan
 
     - name: Show Plan
-      id: show plan
+      id: showplan
       run: |
         terraform plan -no-color > plan.txt
     - name: Upload Plan Output as PR Comment
