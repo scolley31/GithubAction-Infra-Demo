@@ -20,18 +20,18 @@ jobs:
 #          -d '{"content": "A new deployment has been initiated! Approve it here: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"}' \
 #          ${{ secrets.DISCORD_WEBHOOK_URL }}
 
-  terraform_plan:
-    name: 'Terraform plan'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      - name: Init Terraform
-        run: terraform init
-      - name: Validate_Terraform
-        run: terraform validate
-      - name: Plan_Terraform
-        run: terraform plan
+#  terraform_plan:
+#    name: 'Terraform plan'
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v3
+#      - name: Init Terraform
+#        run: terraform init
+#      - name: Validate_Terraform
+#        run: terraform validate
+#      - name: Plan_Terraform
+#        run: terraform plan
 
   terraform_deploy:
     name: 'Terraform deploy'
