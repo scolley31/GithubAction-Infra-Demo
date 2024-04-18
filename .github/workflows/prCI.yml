@@ -52,5 +52,5 @@ jobs:
         uses: mshick/add-pr-comment@v2
         with:
           message-path: |
-            ${{ github.workspace }}/plan.txt
+            ${{ github.workspace }}/src/plan.txt
 
