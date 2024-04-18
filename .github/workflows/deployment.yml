@@ -47,7 +47,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v2
         with:
           role-to-assume: arn:aws:iam::284482750046:role/gihubaction-terraform
-          aws-region: eu-west-1
+          aws-region: ap-northeast-1
 
       - name: Checkout
         uses: actions/checkout@v3
