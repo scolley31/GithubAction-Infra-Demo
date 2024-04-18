@@ -7,11 +7,13 @@ on:
       - '**/*.md'
 
 permissions:
+  id-token: write # This is required for requesting the JWT
+  pull-requests: write
   contents: read
 
 jobs:
   terraform:
-    name: 'Terraform'
+    name: 'Terraform plan check'
     runs-on: ubuntu-latest
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
