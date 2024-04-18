@@ -8,6 +8,8 @@ on:
       - '**/*.md'
 
 permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read  # This is required for actions/checkout
   pull-requests: write
 
 jobs:
@@ -21,19 +23,14 @@ jobs:
         shell: bash
 
     steps:
-    - name: Configure aws credentials
-      uses: aws-actions/configure-aws-credentials@v2
-      with:
-        role-to-assume: arn:aws:iam::284482750046:role/gihubaction-terraform
-        aws-region: ap-northeast-1
-    # Checkout the repository to the GitHub Actions runner
-    - name: Checkout
-      uses: actions/checkout@v3
-
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v2
-      with:
-        terraform_version: 1.4.6
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Init Terraform
+        run: terraform init
+      - name: Validate_Terraform
+        run: terraform validate
+      - name: Plan_Terraform
+        run: terraform plan
 #
 #    # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
 #    - name: Setup Terraform
@@ -42,22 +39,22 @@ jobs:
 #        cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
-    - name: Terraform Init
-      run: terraform init
-
-    - name: Terraform Validate
-      run: terraform validate
-
-    - name: Terraform Plan
-      run: terraform plan
-
-    - name: Show Plan
-      id: showplan
-      run: |
-        terraform plan -no-color > plan.txt
-    - name: Upload Plan Output as PR Comment
-      uses: mshick/add-pr-comment@v2
-      with:
-        message-path: |
-          ${{ github.workspace }}/plan.txt
+#    - name: Terraform Init
+#      run: terraform init
+#
+#    - name: Terraform Validate
+#      run: terraform validate
+#
+#    - name: Terraform Plan
+#      run: terraform plan
+#
+#    - name: Show Plan
+#      id: showplan
+#      run: |
+#        terraform plan -no-color > plan.txt
+#    - name: Upload Plan Output as PR Comment
+#      uses: mshick/add-pr-comment@v2
+#      with:
+#        message-path: |
+#          ${{ github.workspace }}/plan.txt
 
